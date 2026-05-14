@@ -52,6 +52,13 @@
 - Never commit `.env`, credentials, or secrets — warn if asked to.
 - Investigate unfamiliar state before deleting. May be in-progress work.
 
+## Remote Servers (NON-NEGOTIABLE)
+- Never touch a remote host (ssh, scp, rsync, gh, kubectl, cloud CLI, anything reaching off-machine) without an explicit per-action yes.
+- Never run anything destructive on a remote host (rm, drop, truncate, kill, restart, deploy, reset, etc.) without an explicit per-action yes.
+- "Do whatever" / "go ahead" / general session approvals do NOT cover remote actions. Get a fresh yes each time. When unsure, ask.
+- Some servers aren't the user's; some hold shared / third-party state. Always in force regardless of priority order.
+- Incident (2026-05-14): during MSSync fixture work I ssh'd to `rws-s2` and `rm -rf ~/rws-fixtures` after a session-level "do whatever". Recovery-impossible if the host weren't the user's. Rule above exists because of this.
+
 ## Laravel / PHP Projects
 - Use Artisan and Eloquent, not raw SQL or manual file ops.
 - Tests: factories, real test DB (not mocks). See project memory.
