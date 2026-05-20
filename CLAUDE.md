@@ -18,6 +18,12 @@
 ### 4. Verification Before Done
 - Never mark complete without proof: tests pass, logs clean, feature works.
 - "I implemented X" ≠ proof. "I ran Y and saw Z" = proof.
+- **UI changes → validate via `agent-browser` before reporting done** (Vercel Labs CLI, installed globally 2026-05-20; `agent-browser --help` for the surface). Bring up dev, author a short `agent-browser batch` script exercising the golden path (5–10 steps: `open` → navigate → exercise → wait → screenshot → errors → console), post the annotated screenshot in chat. **Hard gates before "done":**
+  - `agent-browser errors` empty (no uncaught JS exceptions).
+  - `agent-browser console` has no new errors vs baseline (pre-existing dev warnings don't count; new ones do).
+  - Terminal `agent-browser snapshot` matches the expected post-change state.
+  - **Only then** ask user to demo. User is final judge of *feel*, not first finder of broken paths.
+- Backend / CLI / non-web changes skip browser validation — show proof via `iex` snippet, `curl` example, or a small sample script. The rule is "show proof," not "always use agent-browser."
 - Ask: would a staff engineer approve this?
 
 ### 5. Demand Elegance
